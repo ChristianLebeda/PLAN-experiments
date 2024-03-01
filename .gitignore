@@ -1,0 +1,13 @@
+__pycache__
+results
+test_*
+.DS_Store
+*.pdf
+*output*
+*.gz
+*.npz
+*.hdf5
+*.ipynb_checkpoints
+POS.csv
+miniconda.sh
+miniconda/

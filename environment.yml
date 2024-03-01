@@ -1,0 +1,10 @@
+name: plan
+dependencies:
+ - nbformat=5.7.0
+ - numpy=1.24.3
+ - pandas=1.5.3
+ - scipy=1.10.1
+ - seaborn=0.12.2
+ - jupyter=1.0.0
+ - joblib=1.2.0
+ - h5py=3.9.0

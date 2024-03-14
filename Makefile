@@ -1,6 +1,6 @@
 INSTALLER=miniconda.sh
 CONDA_BIN=./miniconda/bin/conda
-RUN_SCRIPT=./run.sh
+#RUN_SCRIPT=./run.sh
 
 .PHONY:  clean notebook
 
@@ -14,7 +14,7 @@ endif
 $(INSTALLER):
 	curl $(URL) -L -o $(INSTALLER) 
 	chmod +x $(INSTALLER)
-	chmod +x $(RUN_SCRIPT)
+#	chmod +x $(RUN_SCRIPT)
 
 install: 
 	./$(INSTALLER) -b -p ./miniconda

@@ -76,3 +76,42 @@ When running the binary experiments without IOME 8GB of RAM are sufficient.
 All experiments for the variants of PLAN uses less than 10GB of RAM.
 
 The number of repetitions can be changed by changing the 'runs' variable. This requires a change to the source files. The current setting is 50 repetitions.
+
+
+## Producing plots
+
+Plots are generated using the interactive jupyter notebook `eval/pretty_plot.ipynb`.
+
+To use the notebook, load the environment and start jupyter:
+```
+$ source miniconda/bin/activate plan
+$ jupyter notebook
+```
+
+These commands will open a browser tab at `http://localhost:8888/tree`. You can now navigate to the `pretty_plot.ipynb` which is in the folder `eval`. 
+
+
+The notebook first outputs a plot for a selected Gaussian case, and then produces plots for the Binary case, signposted by the heading "The Binary Case". Given that `csv` files produced by the experiments are available in the expected locations, executing the entire notebook should produce plots paths on the format:
+```
+/experiments_results/{case}/{case}.pdf'
+```
+
+In the 4th notebook cell (marked with the comment `Edit me!`) it is possible to specify which plots to produce. By editing the value of the variable `case` the axes will be updated to the corresponding experiments for the Gaussian experiments. Supported values for `case` are:
+```
+'gaussianA'
+'gaussianB'
+'gaussianC'
+```
+
+Similiarly the Binary experiments are controlled by the variable `bincase`. Supported values:
+```
+'POS'
+'kosarak'
+```
+
+Note that the notebook assumes that `.csv` files produced by experiments are stored in a folder `/experiments_results` as follows:
+```
+/experiments_results/{case}/dataframe.csv
+```
+
+

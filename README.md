@@ -32,6 +32,13 @@ After installing use the following command
 $ source miniconda/bin/activate plan
 ```
 
+## System requirements
+
+The script `install.sh` will make sure to set up a suitable Python environment. All experiments for the variants of PLAN proposed in the paper use less than 10GB of RAM.
+As an exception, running IOME on the sparse binary datasets requires a machine with at least 128 GB RAM.
+
+
+
 ## Running experiments
 
 Running an experiment using the commands below automatically creates an output folder. The result of the experiments are saved to a .csv file.
@@ -64,6 +71,12 @@ $ RUNS=1 python simulations/baseline_comparison.py GaussianA PLAN PLAN-noscale I
 
 The results will be put in an output folder `output-<timestamp>-<case>-0.0`. The file `dataframe.csv` is the basis for the plots in the paper as detailed in the next section.
 
+To run all experiments carried out in the paper, use 
+
+```
+$ for case in GaussianA GaussianB GaussianC GaussianAlow GaussianBlow GaussianClow; do python simulations/baseline_comparison.py $case PLAN PLAN-noscale IOME; done
+```
+
 For the experiments on binary data, run 
 
 ```
@@ -81,7 +94,8 @@ To run all experiments for binary data from the paper use
 $ python simulations/binary_experiments.py kosarak POS synthetic PLAN PLAN-noscale IOME
 ```
 
-Running our baseline IOME uses a lot of memory for some of the experiments. In particular, running IOME on the sparse binary datasets, requires a machine with at least 128 GB RAM. 
+As mentioned previously,
+running the baseline IOME uses a lot of memory for some of the experiments. In particular, running IOME on the sparse binary datasets requires a machine with at least 128 GB RAM. 
 When running the binary experiments without IOME 8GB of RAM are sufficient.
 All experiments for the variants of PLAN uses less than 10GB of RAM.
 
@@ -120,7 +134,7 @@ In the 4th notebook cell (marked with the comment `Edit me!`) it is possible to 
 'gaussianC'
 ```
 
-Similiarly the Binary experiments are controlled by the variable `bincase`. Supported values:
+Similarly the Binary experiments are controlled by the variable `bincase`. Supported values:
 ```
 'POS'
 'kosarak'

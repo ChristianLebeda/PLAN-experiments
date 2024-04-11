@@ -92,8 +92,14 @@ if __name__ == "__main__":
     runs = 50
     if os.getenv('RUNS'):
         runs = int(os.getenv('RUNS'))
-    
-    print(f'Running {runs} trials per parameter choice')
+
+    realworld_runs = 50
+    if os.getenv('REALWORLDRUNS'):
+        realworld_runs = int(os.getenv('REALWORLDRUNS'))
+
+    print(f'Running {runs} trials per parameter choice for synthetic data')
+    print(f'Running {realworld_runs} trials per parameter choice for real-world data')
+
 
     real_runs = {
             "kosarak": (kosarak, "kosarak.hdf5", 32768, []),
@@ -124,8 +130,8 @@ if __name__ == "__main__":
         print(D)
 
         for rho in [0.0625, 0.125, 0.25, 0.5, 1]:
-            print("Running rho=", rho)
-            for i in range(runs):
+            print(f"Running rho={rho}")
+            for i in range(realworld_runs):
                 for method in methods:
                     print("Running ", method)
 
@@ -175,18 +181,21 @@ if __name__ == "__main__":
         synthetic_results = []
         for D in [256, 512, 1024, 2048]:
             for rho in [.0625, .125, .25, .5, 1]:
+                print(f'running d={D} and rho={rho} on synthetic data')
+
                 for i in range(runs):
                     for ratio in [0.0, .25, .5, .75, 1.0]:
                         a, groundtruth = synthetic_data(N, D, ratio=ratio)
+                        
 
                         #print(ratio)
                         gt_p = get_groundtruth(a, N, D)
                         synthetic_results.append({'label': 'Empirical mean (non-private)', 'run': i, 'error': np.linalg.norm(gt_p -  groundtruth, ord=1)/2, 'n': N, 'd': D, "rho": rho, "ratio": ratio, "time": .0})
 
                         if len(methods):
-                            print("Running with PLAN")
+                           print("Running PLAN")
                         for method in methods:
-                            print("Running ", method)
+                            print(f"Running {method} with ratio={ratio}")
                             start = time.time()
                             paper_scaled_res = plan_binary(a, N, D, rho=rho, method=method)
                             end = time.time()
@@ -198,8 +207,8 @@ if __name__ == "__main__":
                             # synthetic_results.append({'label':'PLAN, clipped', 'run': i, 'error':  paper_scaled_clipped_error, 'rho': rho, 'alpha': alpha, 'n': N, 'd': D})
                             synthetic_results.append({'label':f'PLAN({method}), unclipped', 'run': i, 'error':  paper_scaled_unclipped_error, 'rho': rho, "ratio": ratio, 'n': N, 'd': D, 'time': end - start})
                             synthetic_results.append({'label':f'PLAN({method}), clipped', 'run': i, 'error':  paper_scaled_clipped_error, 'rho': rho,  "ratio": ratio, 'n': N, 'd': D, 'time': start-end})
-                            print("clipped",  paper_scaled_clipped_error)
-                            print("unclipped",  paper_scaled_unclipped_error)
+                            #print("clipped",  paper_scaled_clipped_error)
+                            #print("unclipped",  paper_scaled_unclipped_error)
 
 
                         if "IOME" in sys.argv:

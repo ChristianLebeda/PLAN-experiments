@@ -50,7 +50,7 @@ GaussianAlow, GaussianBlow, GaussianClow recreates the experiments from Figure 4
 
 [algorithms ...] should be replaced with a list of methods used for mean estimation. PLAN runs the standard algorithm as discussed in the experiments section of the paper. PLAN-noscale runs PLAN without the scaling step. PLAN-binsearch runs PLAN using private binary search instead of the exponential mechanism for PrivQuantile. The binsearch variant was not used for any of the final experiments in the paper. IOME runs the IOME baseline.
 
-As an example, to run the experiment from Figure 8 (a) use
+As an example, to run the experiment used as basis for Figure 8 (a), invoke
 
 ```
 $ python simulations/baseline_comparison.py GaussianA PLAN PLAN-noscale IOME
@@ -62,7 +62,7 @@ If you want to speed up the process by decreasing the number of trials, run
 $ RUNS=1 python simulations/baseline_comparison.py GaussianA PLAN PLAN-noscale IOME
 ````
 
--- 
+The results will be put in an output folder `output-<timestamp>-<case>-0.0`. The file `dataframe.csv` is the basis for the plots in the paper as detailed in the next section.
 
 For the experiments on binary data, run 
 
@@ -85,7 +85,14 @@ Running our baseline IOME uses a lot of memory for some of the experiments. In p
 When running the binary experiments without IOME 8GB of RAM are sufficient.
 All experiments for the variants of PLAN uses less than 10GB of RAM.
 
-The number of repetitions can be changed by changing the 'runs' variable. This requires a change to the source files. The current setting is 50 repetitions.
+For binary data, the number of runs can be adjusted from the default value of 50 by using defining the environmental variables `RUNS` and `REALWORLDRUNS`. For example 
+```
+$ RUNS=10 REALWORLDRUNS=1 python simulations/binary_experiments.py POS synthetic PLAN
+```
+
+will run PLAN on the synthetic data (10 runs per parameter choice) and on POS (one run).
+
+The folder `output-binary-case-<timestamp>` contains three csv files `kosarak_errors.csv`, `POS_errors.csv`, and `synthetic_errors.csv`, which can be further post-processed to produce the plots in the paper.
 
 
 ## Producing plots

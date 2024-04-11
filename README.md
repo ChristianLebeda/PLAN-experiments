@@ -2,7 +2,7 @@
 
 This repository contains the source code used for the experiments in the paper:
 
-Martin Aumüller, Christian Janos Lebeda, Boel Nelson, and Rasmus Pagh, "PLAN: Variance-Aware Differentially Private Mean Estimation".
+[Martin Aumüller, Christian Janos Lebeda, Boel Nelson, and Rasmus Pagh, "PLAN: Variance-Aware Differentially Private Mean Estimation"](https://arxiv.org/abs/2306.08745), to appear in PETS'24.
 
 ## Dependencies
 
@@ -35,6 +35,8 @@ $ source miniconda/bin/activate plan
 ## Running experiments
 
 Running an experiment using the commands below automatically creates an output folder. The result of the experiments are saved to a .csv file.
+Each experiment will be repeated 50 times per parameter choice.
+To change this, set the environment variable `$RUNS`. 
 
 For the baseline experiments on Gaussian data, run 
 
@@ -53,6 +55,14 @@ As an example, to run the experiment from Figure 8 (a) use
 ```
 $ python simulations/baseline_comparison.py GaussianA PLAN PLAN-noscale IOME
 ````
+
+If you want to speed up the process by decreasing the number of trials, run 
+
+```
+$ RUNS=1 python simulations/baseline_comparison.py GaussianA PLAN PLAN-noscale IOME
+````
+
+-- 
 
 For the experiments on binary data, run 
 

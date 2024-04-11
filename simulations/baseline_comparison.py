@@ -8,6 +8,7 @@ import sys
 sys.path.append(".")
 sys.path.append("..")
 import time
+import os
 from plan.mean_estimation import clip_to_vector, plan, plan_noscale
 from quantile_binary_search.method import random_rotation_mean
 from util.parameters import AlgorithmParameters, ErrorParameters, Results, ExperimentOutput, ExperimentSettings
@@ -74,7 +75,11 @@ if __name__ == "__main__":
     # universe=(10 * -np.sqrt(d) * (mean+distance_to_mean), 10 * np.sqrt(d) * (mean+distance_to_mean))
     # covariance_matrix = strategy_options[strategy](1., (1/(d-1))**2, d) # STRATEGY_ONE_SKEWED
 
-    runs = 1
+    runs = 50
+    if os.getenv('RUNS'):
+        runs = int(os.getenv('RUNS'))
+    
+    print(f'Running {runs} trials per parameter choice')
 
     # General experiment settings
     step = 20

@@ -90,6 +90,10 @@ if __name__ == "__main__":
         print('Creating folder', folder)
 
     runs = 50
+    if os.getenv('RUNS'):
+        runs = int(os.getenv('RUNS'))
+    
+    print(f'Running {runs} trials per parameter choice')
 
     real_runs = {
             "kosarak": (kosarak, "kosarak.hdf5", 32768, []),

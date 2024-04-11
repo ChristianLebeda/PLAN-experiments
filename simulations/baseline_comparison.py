@@ -23,13 +23,6 @@ def plan_wrapper(input:AlgorithmParameters, fill:bool, regularization: bool, kap
 
 
 if __name__ == "__main__":
-    # Create a folder to store results in; use timestamps in name to avoid collisions
-    output_folder = './output-{t}/'.format(t=str(time.time()).split('.')[0])
-    csv_filename = '{pre}dataframe.csv'.format(pre=output_folder)
-    plot_filename = '{pre}plot_mean.pdf'.format(pre=output_folder)
-    settings_filename = '{pre}settings.json'.format(pre=output_folder)
-    
-
     parser = argparse.ArgumentParser()
     parser.add_argument("experiment")
     parser.add_argument("algorithms", nargs='*')
@@ -299,7 +292,8 @@ if __name__ == "__main__":
 
     
     for corr in correlations:
-        output_folder = './output-{t}-{corr}/'.format(t=str(time.time()).split('.')[0], corr=corr)
+        # Create a folder to store results in; use timestamps in name to avoid collisions
+        output_folder = './output-{t}-{c}-{corr}/'.format(t=str(time.time()).split('.')[0], c=args.experiment, corr=corr)
         csv_filename = '{pre}dataframe.csv'.format(pre=output_folder)
         plot_filename = '{pre}plot_mean.pdf'.format(pre=output_folder)
         settings_filename = '{pre}settings.json'.format(pre=output_folder)
@@ -332,7 +326,7 @@ if __name__ == "__main__":
                     pass
 
 
-        # Datastructure to save all the settings used e-asily to file
+        # Datastructure to save all the settings used easily to file
         experimentSettings = ExperimentSettings(step=step,
                                                 recenter_and_std_budget_proportion=joint_preprocess_budget_prop,
                                                 recenter_budget_proportion=centering_budget_prop,
@@ -449,7 +443,7 @@ if __name__ == "__main__":
 
                                 to_add.append(output_to_dict(ExperimentOutput( "{k}-UNCLIPPED".format(k=key), params, statistical_means[x_axis_index][0], strategies[x_axis_index], rs[x_axis_index], i, unclipped)))
                         
-                # Save error terms separatley
+                # Save error terms separately
                 for key in error_terms.keys():
                     error_params = ErrorParameters(n=ns[x_axis_index], dimensions=dimensions[x_axis_index], rho=rhos[x_axis_index], sigmas=np.sqrt(covariance_matrices[0].diagonal()))
                     to_plot[key].append((x, error_terms[key](error_params)))

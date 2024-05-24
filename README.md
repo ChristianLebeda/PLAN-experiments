@@ -8,15 +8,15 @@ This repository contains the source code used for the experiments in the paper:
 
 We re-use source code from two other projects.
 
-Our quantile estimation is based on an algorithm from:  
+Our quantile estimation in `kaplan_et_al/` is based on an algorithm described in:  
 
-H. Kaplan, S. Schnapp, U. Stemmer, "Differentially Private Approximate Quantiles".
+H. Kaplan, S. Schnapp, U. Stemmer, "Differentially Private Approximate Quantiles", ICML 2022.
 
 We used their source code available here: https://github.com/ShacharSchnapp/DP_AQ/blob/master/algorithms/single_quantile_algo.py
 
 We compare our mechanism with the mechanism from:
 
-Ziyue Huang, Yuting Liang, Ke Yi, "Instance-optimal Mean Estimation Under Differential Privacy".
+Ziyue Huang, Yuting Liang, Ke Yi, "Instance-optimal Mean Estimation Under Differential Privacy", NeurIPS 2021.
 
 The source code is available as part of their supplementary material here: https://proceedings.neurips.cc/paper/2021/hash/da54dd5a0398011cdfa50d559c2c0ef8-Abstract.html
 
